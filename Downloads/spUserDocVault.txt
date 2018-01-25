@@ -1,0 +1,52 @@
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+-- =============================================
+-- Author:		<Vikas>
+-- Create date: <June 19, 2010>
+-- Description:	<Use to add All Documents of DocumentVault in all User's DocumentVault>
+-- =============================================
+create PROCEDURE [dbo].[RFP_Admin_Insert_AllDoctoAllUserDocVault]
+
+AS
+BEGIN
+	delete RFP_User_DocumentVault
+	declare @User_IDs varchar(2000)
+	set @User_IDs='';
+	select @User_IDs=@User_IDs+convert(varchar,id)+',' from RFP_Userlist 
+
+	if @User_IDs!=''
+		begin
+			declare @tmpUid varchar(1000)
+			declare @inx int
+			declare @len int
+			set @tmpUid='';
+			while (len(@User_IDs)>=1)
+				begin
+					set @inx=charindex(',',@User_IDs);
+					set @len=len(@User_IDs);
+					set @tmpUid=substring(@User_IDs,0,@inx);
+					
+					declare @Doc_IDs varchar(2000)
+					set @Doc_IDs='';
+					select @Doc_IDs=@Doc_IDs+convert(varchar,id)+',' from RFP_DocumentVault
+
+					if @Doc_IDs!=''
+						begin
+							declare @tmpDid varchar(1000)
+							declare @sinx int
+							declare @slen int
+							set @tmpDid='';
+							while (len(@Doc_IDs)>=1)
+								begin
+									set @sinx=charindex(',',@Doc_IDs);
+									set @slen=len(@Doc_IDs);
+									set @tmpDid=substring(@Doc_IDs,0,@sinx);
+									insert into RFP_User_DocumentVault (User_ID,Vault_ID) values (@tmpUid,@tmpDid)
+									set @Doc_IDs=substring(@Doc_IDs,@sinx+1,@slen);
+								end
+						end
+					set @User_IDs=substring(@User_IDs,@inx+1,@len);
+				end
+		end
+end

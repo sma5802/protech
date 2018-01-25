@@ -1,0 +1,28 @@
+﻿body {
+}
+.maindv
+{
+	background-color:Black;
+	color:White;
+	padding:10px;
+	font-weight:bold;
+}
+
+.maindv a
+{
+	color:White;
+	padding:10px;
+	text-decoration:underline;
+}
+.maindv a:hover
+{
+	background-color:#6C6C6C;
+	color:White;
+	text-decoration:none;
+}
+.selected
+{
+	background-color:#6C6C6C;
+	color:White;
+	text-decoration:none;
+}

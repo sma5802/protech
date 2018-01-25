@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+
+public partial class failure : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["fail"] != null && Request.QueryString["fail"].ToString() != "")
+        {
+            if (Request.Cookies["myOrder"] != null && Request.Cookies["myOrder"].Value.ToString() != "")
+            {
+                HttpCookie myOrder = Request.Cookies["myOrder"];
+                myOrder.Expires = DateTime.Today.AddDays(-1);
+                Response.Cookies.Add(myOrder);
+
+                if (Request.QueryString["fail"].ToString().ToLower() == "f")
+                {
+                    lblMsg.Text = "<body bgcolor='#FFFFFF' text='#000000' link='#FF0000' vlink='#000000' alink='#FF9900'><table border='0' cellpadding='2' cellspacing='0' width='100%'><tr><td align='center'><font size='5'><b><a href='http://www.skipjack.com'>Skipjack</a></b>™<b>- Secure Internet Commerce</b></font></td></tr><tr><td align='center'><hr noshade width='300'></td></tr><tr><td align='center'><b><font size='5' face='arial,helvetica'>Invalid information has been entered<br> or information is missing.</font></b></td>  </tr>  <tr>    <td align='center'><hr noshade width='300'></td>  </tr>  <tr>    <td align='center'><font size='4' color='#FF0000' face='arial,helvetica'>There are a few possible      reasons for this, they are as follows: </font></td>  </tr>  <tr>    <td align='center'>      <table border='0' cellpadding='2' cellspacing='0'>        <tr align='left'><td valign='top' ><font face='arial,helvetica'>1)</font></td>          <td><font face='arial,helvetica'>There has been a mistake in the information entered in the order           form</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>a) Use your browser's back button to return to your filled out            order page.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>b) Double check to see that you have entered information in every            required field.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>c) Double check to see that you have entered valid information in            the correct locations.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>d) Click the 'Place Order' button once again.</font></td>        </tr>        <tr align='left'>          <td valign='top'><font face='arial,helvetica'>2)</font></td>          <td><font face='arial,helvetica'>The site from which you are placing an order may be experiencing            difficulties.</font> </td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>a) Check over your information as specified in the above steps.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>b) If problem persists - contact the site and report that you are            having problems.</font></td>        </tr>      </table>    </td>  </tr>  <tr>    <td align='center'><hr noshade width='300'> </td>  </tr>  <tr>    <td align='center'><font color='#FF0000' size='4' face='arial,helvetica'>If continue to have problems      or if you have questions please contact: <MerchantName> </font></td>  </tr>  <tr>    <td align='center'><font face='arial,helvetica'>Customer Support at: <MerchantPhone> or E-mailat: <MerchantEmail> or Fax at: <MerchantFax>      </font></td>  </tr>  <tr>    <td align='center'></td>  </tr></table></body>";
+                }
+                else if (Request.QueryString["fail"].ToString().ToLower() == "c")
+                {
+                    lblMsg.Text = "<body LINK='#FF0000' VLINK='#000000' BGCOLOR='#ffffff' text='#000000' alink='#FF9900'><table border='0' cellpadding='2' cellspacing='0' width='100%'>  <tr>    <td align='center'><font size='5' face='arial,helvetica'><b><a href='http://www.skipjack.com'>Skipjack</a></b>™<b>      - Secure Internet Commerce</b></font></td>  </tr>  <tr>    <td align='center'><hr noshade width='300'></td>  </tr>  <tr>    <td align='center'><font size='4' face='arial,helvetica'><b>An invalid credit card number has been      entered.</b></font></td>  </tr>  <tr>    <td align='center'><hr noshade width='300'></td>  </tr>  <tr>    <td align='center'><font color='#FF0000' size='4' face='arial,helvetica'>There are a few possible      reasons for this, they are as follows: </font></td>  </tr>  <tr>    <td align='center'>      <table border='0' cellpadding='2' cellspacing='0'>        <tr align='left'>          <td valign='top'><font face='arial,helvetica'>1)</font></td><td><font face='arial,helvetica'>There has been a mistake in entering the credit card number</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>a) Use your browser's back button to return to your filled out            order page.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>b) Re-enter your credit card number.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>c) Double check to see that number appears exactly as it does on            your credit card.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>d) Click the 'Place Order' button once again.</font></td>        </tr>        <tr align='left'>          <td valign='top'><font face='arial,helvetica'>2)</font></td>          <td><font face='arial,helvetica'>The site from who you are making the purchase does not accept your            type of credit card.</font></td>        </tr>        <tr align='left'>         <td valign='top'></td>          <td><font face='arial,helvetica'>a) Use your browser's back button to return to your filled out            order page.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>b) If you have an alternate type of credit card - enter this            information.</font></td>        </tr>        <tr align='left'>          <td valign='top'></td>          <td><font face='arial,helvetica'>c) Click the 'Place Order' button once again.</font></td>        </tr>      </table>    </td>  </tr>  <tr>    <td align='center'><hr noshade width='300'> </td>  </tr>  <tr>    <td align='center'><font color='#FF0000' size='4' face='arial,helvetica'>If continue to have problems      or if you have questions please contact: <MerchantName> </font></td>  </tr>  <tr>    <td align='center'><font face='arial,helvetica'>Customer Support at: <MerchantPhone> or E-mail us at: <MerchantEmail> or Fax us at: <MerchantFax></font></td>  </tr>  <tr>    <td align='center'></td>  </tr></table></body>";
+                }
+                else if (Request.QueryString["fail"].ToString().ToLower() == "s")
+                {
+                    lblMsg.Text = "<body bgcolor='#FFFFFF' link='#FF0000' vlink='#000000' alink='#FF9900'><table border='0' cellpadding='2' cellspacing='0' width='100%'>  <tr>    <td align='center'><font size='5' face='arial,helvetica'><b><a href='http://www.skipjack.com'>Skipjack</a></b>™<b>      - Secure Internet Commerce</b></font></td>  </tr>  <tr>    <td align='center'><hr noshade width='300'></td>  </tr>  <tr>    <td align='center'><font size='5' face='arial,helvetica'><b>A System Error has occurred</b></font></td>  </tr>  <tr>    <td align='center'><hr noshade width='300'></td>  </tr>  <tr>    <td align='center'><font size='4' color='#FF0000' face='arial,helvetica'>Please wait a few minutes and      re-try your transaction as follows:</font></td>  </tr>  <tr>    <td align='center'>      <table border='0' cellpadding='2' cellspacing='0'>        <tr align='left'>          <td><font face='arial,helvetica'>1) Use your browser's back button to return to your filled out            order page.</font></td>        </tr>        <tr align='left'>          <td><font face='arial,helvetica'>2) Wait a few minutes.</font></td>        </tr>        <tr align='left'>          <td><font face='arial,helvetica'>3) Click the 'Place Order' button once again.</font></td>        </tr>      </table>    </td>  </tr>  <tr>    <td align='center'><hr noshade width='300'> </td>  </tr>  <tr>    <td align='center'><font color='#FF0000' size='4' face='arial,helvetica'>If continue to have problems      or if you have questions please contact: <MerchantName>  </tr>  <tr>    <td align='center'><font face='arial,helvetica'>Customer Support at: <MerchantPhone> or E-mail at: <MerchantEmail> or Fax at: <MerchantFax>     </font></td>  </tr>  <tr>    <td align='center'></td>  </tr></table></body>";
+                }
+                //else
+                //    Response.Redirect("default.aspx");
+            }
+            else
+                Response.Redirect("default.aspx");
+        }
+        else
+        {
+            Response.Redirect("default.aspx");
+        }
+    }
+}

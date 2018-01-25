@@ -1,0 +1,10 @@
+c:\testProjects\Peptech\bin\Peptech.dll
+c:\testProjects\Peptech\bin\Peptech.pdb
+c:\testProjects\Peptech\obj\Release\ResolveAssemblyReference.cache
+c:\testProjects\Peptech\obj\Release\Peptech.dll
+c:\testProjects\Peptech\obj\Release\Peptech.pdb
+C:\Users\Jessy-Evan\Google Drive\Peptech\bin\Peptech.dll
+C:\Users\Jessy-Evan\Google Drive\Peptech\bin\Peptech.pdb
+C:\Users\Jessy-Evan\Google Drive\Peptech\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Jessy-Evan\Google Drive\Peptech\obj\Release\Peptech.dll
+C:\Users\Jessy-Evan\Google Drive\Peptech\obj\Release\Peptech.pdb

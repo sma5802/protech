@@ -1,0 +1,48 @@
+
+.hidden {
+	display: none;
+}
+
+.tickLink {
+	float: left;
+	margin: 0px 3px 0px 0px;
+	font-size: 13px;
+	letter-spacing:1px;
+	text-transform: uppercase;
+	color: #DC9D24;
+}
+
+.tickContent {
+	float: left;
+	font-size: 13px;
+	text-transform: uppercase;
+	margin: 0px 2px 0px 4px;
+	letter-spacing:1px;
+	position: relative;
+	height: 13px;
+	color: #DC9D24;
+}
+
+.tickButton {
+	float: left;
+	cursor: pointer;
+	cursor: hand;
+	margin: 1px;
+	position: relative;
+}
+
+#cursor {
+	background: none;
+	float: left;
+	height: 10px;
+	width: 8px;
+	position: relative;
+	padding: 1px 0px 4px 0px;
+	z-index: 100;
+}
+a
+{
+    color:#E58304;
+    text-decoration:none;
+    font-weight:bold;
+    }

@@ -1,0 +1,164 @@
+<%@ Master Language="C#" AutoEventWireup="True" Inherits="Content" Codebehind="Content.master.cs" %>
+<%@ Register TagPrefix="uc1" TagName="links" Src="~/menucontrol.ascx" %> 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+
+    <title><%=ConfigurationManager.AppSettings["title"].ToString() %></title>
+    <link href="css/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <link href="resources/css1/rcom-ticker-tr.css" rel="stylesheet" type="text/css" />
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> --%>
+    <%--<script language="javascript" src="slideshow.js"></script>--%>
+         <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="css/ie.css" />
+    <! [endif]-->
+<style type="text/css">
+.menu
+{   
+	padding:8px 20px 5px 20px;
+		color:white;
+		font-family:Arial;
+		font-size:12px;
+		text-decoration:none;
+		text-align:center;
+		font-variant:normal;
+}
+</style>
+<script language="javascript" type="text/javascript">
+function search()
+{
+    var text=document.getElementById('<%=txtsearch.ClientID %>');
+    var name='search';
+    if(text.value.length==0)
+    {
+        alert('Please enter a valid search string');
+        text.focus();
+        void(0);
+    }
+    else
+    {
+        createCookie(name,text.value,0);
+        window.location="ProductSearch.aspx";
+    }	
+}
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+</script>
+</head>
+<body >
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <div align="center"> 
+            <table width="1004" border="0" cellpadding="0" cellspacing="0" class="text">
+                  <tr>
+                    <td width="17" height="18" align="left" valign="top"><img src="images/main-tlcr.gif" alt="corner" width="17" height="18" /></td>
+                    <td height="18" align="left" valign="top" style="background-image:url(images/main-tbg.gif)"><img src="images/space.gif" alt="space" width="1" height="1" /></td>
+                    <td width="17" height="18" align="left" valign="top"><img src="images/main-trcr.gif" alt="corner" width="17" height="18" /></td>
+                  </tr>
+                  <tr>
+                    <td width="17" align="left" valign="top" style="background-image:url(images/main-lbg.gif) "><img src="images/space.gif" alt="space" width="1" height="1" /></td>
+                    <td align="left" valign="topwait">
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="152"><a href="Default.aspx"><img src="images/peptech-logo.gif" alt="Peptech" width="152" height="104" border="0" /></a></td>
+                                <td align="right">
+                                    <table cellpadding="3" cellspacing="0">
+                                        <tr>
+                                            <td style="height: 54px">
+                                                <a href="ProductSearch.aspx?search=direct"><strong class="bluetext">Search Product:</strong></a>   
+                                                &nbsp;
+                                            </td>
+                                            <td style="height: 108px">
+                                                <asp:TextBox ID="txtsearch" runat="server" Width="150" ValidationGroup="ss"></asp:TextBox></td>
+                                            <td style="height: 54px">
+                                                <a href="javascript:search();" ><img border="0" src="images/GO1.jpg" /></a>    
+                                            </td>
+                                        </tr>
+                                    </table>    
+                                </td>
+                            </tr>
+                            <tr>
+                            <td colspan="2">
+                                <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="text">
+                                    <tr>
+                                        <td align="right" valign="top" style="height: 18px">
+                                            <asp:Label ID="lblUser" EnableViewState="false" runat="server" CssClass="bluelink1" Font-Bold="True"></asp:Label>
+                                            <span id="s1" runat="server" >&nbsp;|&nbsp;</span>
+                                            <asp:LinkButton ID="lnkmyaccount" EnableViewState="false" runat="server" CssClass ="bluelink1" OnClick="lnkmyaccount_Click" Font-Bold="true" Visible="false">My Account</asp:LinkButton>
+                                            <span id="s2" runat="server" >&nbsp;|&nbsp;</span>
+                                            <asp:LinkButton ID="lnkbasket" EnableViewState="false" runat="server" CssClass="bluelink1" PostBackUrl="~/Mycart.aspx" Font-Bold="true" CausesValidation="false"></asp:LinkButton>
+                                            <span id="s3" runat="server" >&nbsp;|&nbsp;</span>
+                                            <asp:HyperLink ID="hypsignin" EnableViewState="false" runat ="server" CssClass="blueheading" Font-Bold="True">[hypsignin]</asp:HyperLink>
+                                            <span id="s4" runat="server" >&nbsp;|&nbsp;</span>
+                                            <asp:LinkButton ID="lnkstatus" EnableViewState="false" runat="server" CausesValidation="false" CssClass="blueheading" Font-Bold="true" OnClick="lnkstatus_click" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            </tr>
+                        </table>
+                        <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="text">
+                            <tr>
+                                <td align="left" valign="top" bgcolor="#10316B" >
+                                    <uc1:links id="links1" runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="17" align="left" valign="top" style="background-image:url(images/main-rbg.gif) "><img src="images/space.gif" alt="space" width="1" height="1" /></td>
+                </tr>
+            </table>
+            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+            </asp:contentplaceholder>
+
+            <table width="1004" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="17" align="left" valign="top" style="background-image:url(images/main-lbg.gif) "><img src="images/space.gif" alt="space" width="1" height="1" /></td>
+                    <td align="left" valign="top">
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="10">
+                            <tr>
+                                <td height="30" bgcolor="#10316B">
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="whitetext">
+                                        <tr>
+                                            <td align="left"><strong class="smallwhitetext">&copy; 2014 PepTech Corporation. All Rights Reserved. </strong></td>
+                                            <td align="right"><strong><a href="Default.aspx" class="whitetext">Home</a> | <a href="Contents.aspx?page=Contact+Us" class="whitetext">Contact Info</a> | <a href="jobs.aspx" class="whitetext">Job Opportunities</a> | <a href="Contents.aspx?page=Privacy+Policy" class="whitetext">Privacy Policy</a> | <a href="RequestInfo.aspx" class="whitetext">Info Request</a> | <a href="Download.aspx" class="whitetext">Download</a> </strong></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="17" align="left" valign="top" style="background-image:url(images/main-rbg.gif) ">
+                        <img src="images/space.gif" alt="space" width="1" height="1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="17" height="18" align="left" valign="top"><img src="images/main-blcr.gif" alt="Corner" width="17" height="18" /></td>
+                    <td height="18" align="left" valign="top" style="background-image:url(images/main-bbg.gif) "><img src="images/space.gif" alt="Space" width="1" height="1" /></td>
+                    <td width="17" height="18" align="left" valign="top"><img src="images/main-brcr.gif" alt="corner" width="17" height="18" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+   </body>
+</html>

@@ -1,0 +1,22 @@
+c:\TestProjects\Peptech\obj\Debug\ResolveAssemblyReference.cache
+c:\TestProjects\Peptech\bin\Peptech.dll
+c:\TestProjects\Peptech\bin\Peptech.pdb
+c:\TestProjects\Peptech\obj\Debug\Peptech.dll
+c:\TestProjects\Peptech\obj\Debug\Peptech.pdb
+C:\Users\Jessy-Evan\Google Drive\Peptech\bin\Peptech.dll
+C:\Users\Jessy-Evan\Google Drive\Peptech\bin\Peptech.pdb
+C:\Users\Jessy-Evan\Google Drive\Peptech\obj\Debug\Peptech.dll
+C:\Users\Jessy-Evan\Google Drive\Peptech\obj\Debug\Peptech.pdb
+C:\Users\Jessy-Evan\Google Drive\Peptech\obj\Debug\Peptech.csprojResolveAssemblyReference.cache
+C:\Users\sma\Google Drive\Peptech\bin\Peptech.dll
+C:\Users\sma\Google Drive\Peptech\bin\Peptech.pdb
+C:\Users\sma\Google Drive\Peptech\obj\Debug\Peptech.csprojResolveAssemblyReference.cache
+C:\Users\sma\Google Drive\Peptech\obj\Debug\Peptech.dll
+C:\Users\sma\Google Drive\Peptech\obj\Debug\Peptech.pdb
+C:\Projects\Peptech\bin\Peptech.dll.config
+C:\Projects\Peptech\bin\Peptech.dll
+C:\Projects\Peptech\bin\Peptech.pdb
+C:\Projects\Peptech\bin\AuthorizeNet.dll
+C:\Projects\Peptech\obj\Debug\Peptech.dll
+C:\Projects\Peptech\obj\Debug\Peptech.pdb
+C:\Projects\Peptech\obj\Debug\Peptech.csprojResolveAssemblyReference.cache

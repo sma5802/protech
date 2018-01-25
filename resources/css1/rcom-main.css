@@ -1,0 +1,42 @@
+/* ***************************** */
+/* Formatting */
+
+a {
+	color: #005A84;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+body {
+	margin: 0px;
+	font-family: arial,helvetica,sans;
+	font-size: 13px;
+	line-height: 1.2;
+	background-color: #F5F5F5;
+	color: #DC9D24;
+	position: relative;
+}
+
+
+.contentBand {
+	float: left;
+	width: 808px;
+	margin-bottom: 0px;
+	color:Maroon;
+}
+
+.contentBand:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+/* Hides from IE-mac \*/
+* html .contentBand { clear: left; }
+/* End hide from IE-mac */

@@ -1,0 +1,78 @@
+﻿using CyberSource.Soap;
+using CyberSource.Soap.CyberSourceWS;
+using System;
+using System.Configuration;
+using System.Net;
+using System.Web.Services.Protocols;
+
+namespace cyber
+{
+
+  public class intregation 
+  {
+
+    static void Main(string[] args) {
+
+      RequestMessage request = new RequestMessage();
+      request.merchantID = "bofa_demo4538"; 
+
+      // we want to do Credit Card Authorization in this sample
+      request.ccAuthService = new CCAuthService();
+      request.ccAuthService.run = "true"; 
+
+      // add required fields
+      request.merchantReferenceCode = "148705832705344";
+
+       BillTo billTo = new BillTo();
+      billTo.firstName = "Jane";
+      billTo.lastName = "Smith";
+      billTo.street1 = "1295 Charleston Road";
+      billTo.city = "Mountain View";
+      billTo.state = "CA";
+      billTo.postalCode = "94043";
+      billTo.country = "US";
+      billTo.email = "jsmith@example.com";
+      request.billTo = billTo;
+      Card card = new Card();
+      card.accountNumber = "4111111111111111";
+      card.expirationMonth = "12";
+      card.expirationYear = "2010";
+      request.card = card;
+      PurchaseTotals purchaseTotals = new PurchaseTotals();
+      purchaseTotals.currency = "USD";
+      request.purchaseTotals = purchaseTotals; 
+
+      // there is one item in this sample
+      request.item = new Item[1];
+      Item item = new Item();
+      item.id = "0";
+      item.unitPrice = "29.95";
+      request.item[0] = item;
+
+      // See Interpreting the Reply for details about
+      // processing the reply for a SOAP transaction.
+      try {
+        ReplyMessage reply = Client.RunTransaction( request );
+
+      } catch (SignException se) {
+        Console.WriteLine( se.ToString() );
+
+      } catch (SoapHeaderException she) {
+
+        Console.WriteLine( she.ToString() );
+
+      } catch (SoapBodyException sbe) {
+
+        Console.WriteLine( sbe.ToString() );
+
+      } catch (WebException we) {
+
+        Console.WriteLine( we.ToString() );
+
+      }
+
+    }
+
+  }
+
+}
