@@ -117,7 +117,7 @@ public partial class CreditCard {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.UserControl links1;
+    protected global::MenuControl2l links1;
     
     /// <summary>
     /// GridView_cart control.
@@ -361,6 +361,15 @@ public partial class CreditCard {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+    
+    /// <summary>
+    /// lblMessage control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label lblMessage;
     
     /// <summary>
     /// hidorderno control.

@@ -340,6 +340,9 @@ OnClick="ImageButton1_Click" AlternateText="Place Order" ValidationGroup="pus" V
     &nbsp;&nbsp;&nbsp;
 <br /> 
 <br />
+<asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Large" />
+<br /> 
+<br />
     <asp:HiddenField ID="hidorderno" runat="server" />
 <br />
 </td>

@@ -9,6 +9,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using UserClass;
+using AuthorizeNet.Api.Controllers;
+using AuthorizeNet.Api.Contracts.V1;
+using AuthorizeNet.Api.Controllers.Bases;
 
 public partial class CreditCard : System.Web.UI.Page
 {
@@ -303,11 +306,124 @@ public partial class CreditCard : System.Web.UI.Page
             HttpCookie myOrder = new HttpCookie("myOrder", Session["orderno"].ToString());
             Response.Cookies.Add(myOrder);
             //Response.Redirect(ConfigurationManager.AppSettings["websitepath1"]+"SkipPayment.aspx");
-            Response.Redirect("SkipPayment.aspx");
+            //Response.Redirect("SkipPayment.aspx");
+            SendPayment();
         }
         else
         {
             lblmsg.Text = "Please enter Card Holder Name";
+        }
+    }
+
+    private void SendPayment()
+    {
+        DataSet ds = customUtility.GetTableData("select * from " + customUtility.DBPrefix + "orderdetail where orderno=(select top 1 orderno from " + customUtility.DBPrefix + "order where userid='" + Session["UserID"] + "' order by orderid desc)");
+        
+        ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.PRODUCTION;
+
+        // define the merchant information (authentication / transaction id)
+        ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
+        {
+            name = System.Configuration.ConfigurationManager.AppSettings["paymentLoginID"],
+            ItemElementName = ItemChoiceType.transactionKey,
+            Item = System.Configuration.ConfigurationManager.AppSettings["paymentTransID"],
+        };
+
+        var creditCard = new creditCardType
+        {
+            cardNumber = txtCreditCardNumber.Text,
+            expirationDate = cboExpMonth.SelectedItem + cboExpYear.SelectedValue.Substring(cboExpYear.SelectedValue.Length - 2),
+            cardCode = txtCSVNumber.Text
+        };
+
+        var name = txtCardHolderName.Text.Split(new char[]{',', ' '});
+
+        var billingAddress = new customerAddressType
+        {
+            firstName = name[0],
+            lastName = name[name.Length -1],
+            address = Session["streetaddress"].ToString(),
+            city = Session["city"].ToString(),
+            state = Session["state"].ToString(),
+            zip = Session["zipcode"].ToString(),
+            country = Session["country"].ToString()
+        };
+
+        var shipToName = Session["shiptoname"].ToString().Split(new char[] { ',', ' ' });
+
+        var shippingAddress = new nameAndAddressType
+        {
+            firstName = shipToName[0],
+            lastName = shipToName[shipToName.Length - 1],
+            address = Session["shiptostreetaddress"].ToString(),
+            city = Session["shiptocity"].ToString(),
+            state = Session["shiptostate"].ToString(),
+            zip = Session["shiptozipcode"].ToString(),
+            country = Session["shiptocountry"].ToString()
+        };
+
+        //standard api call to retrieve response
+        var paymentType = new paymentType { Item = creditCard };
+
+        // Add line Items
+        var lineItems = new lineItemType[ds.Tables[0].Rows.Count];
+        for (int iCount = 0; iCount < ds.Tables[0].Rows.Count; iCount++)
+        {
+            lineItems[iCount] = new lineItemType {
+                itemId = (iCount + 1).ToString(),
+                name = ds.Tables[0].Rows[iCount]["ProductName"].ToString(),
+                quantity = Convert.ToDecimal(ds.Tables[0].Rows[iCount]["Qty"]),
+                unitPrice = Convert.ToDecimal(ds.Tables[0].Rows[iCount]["price"]), 
+            };
+        }
+
+        var totalAmount = Convert.ToDecimal(Session["amt"]);
+        var transactionRequest = new transactionRequestType
+        {
+            transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),    // charge the card
+
+            amount = totalAmount,
+            payment = paymentType,
+            billTo = billingAddress,
+            lineItems = lineItems,
+            shipTo = shippingAddress
+        };
+            
+        var request = new createTransactionRequest { transactionRequest = transactionRequest };
+            
+        // instantiate the controller that will call the service
+        var controller = new createTransactionController(request);
+        controller.Execute();
+            
+        // get the response from the service (errors contained if any)
+        var response = controller.GetApiResponse();
+
+        // validate response
+        if (response != null)
+        {
+            if (response.messages.resultCode == messageTypeEnum.Ok)
+            {
+                if(response.transactionResponse.messages != null)
+                {
+                    lblMessage.Text = "Transction successful!";
+                    Response.Redirect("Confirmation.aspx");
+                }
+                else
+                {
+                    lblMessage.Text = "Failed Transaction: " + response.transactionResponse.errors[0].errorText;
+                }
+            }
+            else
+            {
+                if (response.transactionResponse != null && response.transactionResponse.errors != null)
+                {
+                    lblMessage.Text = "Failed Transaction: " + response.transactionResponse.errors[0].errorText;
+                }
+                else
+                {
+                    lblMessage.Text = "Failed Transaction: "  + response.messages.message[0].text;
+                }
+            }
         }
     }
 
